@@ -1,6 +1,10 @@
 const express = require("express");
 const cors = require("cors");
 const { PORT } = require("./api/config");
+const dbConnection = require("./api/database/connection");
+
+// import routes
+const employeeRoutes = require("./api/routes/employee");
 
 const app = express();
 
@@ -9,6 +13,12 @@ app.use(express.urlencoded({ extended: true, limit: "1mb" }));
 app.use(cors());
 
 const startServer = () => {
+  // Establish database connection
+  dbConnection();
+
+  // Routes
+  app.use("/employee", employeeRoutes);
+
   app.get("/", (req, res) => {
     res.send("Employee Manager API is working");
   });
@@ -22,7 +32,8 @@ const startServer = () => {
 
   // Catch errors
   app.use((error, req, res, next) => {
-    res.status(error.status || 500).json(error);
+    const statusCode = error.statusCode || 500;
+    res.status(statusCode).json(error);
   });
 
   app.listen(PORT, () => {
