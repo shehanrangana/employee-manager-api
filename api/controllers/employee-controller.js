@@ -1,6 +1,13 @@
 const EmployeeService = require("../services/employee-service");
 const { STATUS_CODES } = require("../utils/enums");
 
+/**
+ * @async
+ * @param {Object} req
+ * @param {Object} res
+ * @param {Function} next
+ * @returns
+ */
 exports.getEmployees = async (req, res, next) => {
   try {
     const data = await EmployeeService.getEmployees();
@@ -10,6 +17,13 @@ exports.getEmployees = async (req, res, next) => {
   }
 };
 
+/**
+ * @async
+ * @param {Object} req
+ * @param {Object} res
+ * @param {Function} next
+ * @returns
+ */
 exports.createEmployee = async (req, res, next) => {
   try {
     const payload = req.body;
@@ -21,6 +35,13 @@ exports.createEmployee = async (req, res, next) => {
   }
 };
 
+/**
+ * @async
+ * @param {Object} req
+ * @param {Object} res
+ * @param {Function} next
+ * @returns
+ */
 exports.updateEmployee = async (req, res, next) => {
   try {
     const employeeId = req.params.empId;
@@ -33,6 +54,13 @@ exports.updateEmployee = async (req, res, next) => {
   }
 };
 
+/**
+ * @async
+ * @param {Object} req
+ * @param {Object} res
+ * @param {Function} next
+ * @returns
+ */
 exports.getEmployeeById = async (req, res, next) => {
   try {
     const employeeId = req.params.empId;
@@ -44,6 +72,13 @@ exports.getEmployeeById = async (req, res, next) => {
   }
 };
 
+/**
+ * @async
+ * @param {Object} req
+ * @param {Object} res
+ * @param {Function} next
+ * @returns
+ */
 exports.deleteEmployee = async (req, res, next) => {
   try {
     const employeeId = req.params.empId;

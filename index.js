@@ -5,6 +5,7 @@ const dbConnection = require("./api/database/connection");
 
 // import routes
 const employeeRoutes = require("./api/routes/employee");
+const seeder = require("./api/database/seeder");
 
 const app = express();
 
@@ -15,6 +16,9 @@ app.use(cors());
 const startServer = () => {
   // Establish database connection
   dbConnection();
+
+  // Insert initial data into database
+  seeder();
 
   // Routes
   app.use("/employee", employeeRoutes);

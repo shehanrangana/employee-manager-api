@@ -1,11 +1,20 @@
 const { NotFoundError, ConflictError } = require("../../utils/app-errors");
 const Employee = require("../models/Employee");
 
+/**
+ * @async
+ * @returns
+ */
 exports.find = async () => {
   const employees = await Employee.find();
   return employees;
 };
 
+/**
+ * @async
+ * @param {Object} data
+ * @returns
+ */
 exports.create = async (data) => {
   if (data.email) {
     const employee = await Employee.findOne({ email: data.email });
@@ -20,6 +29,12 @@ exports.create = async (data) => {
   return result;
 };
 
+/**
+ * @async
+ * @param {string} id
+ * @param {Object} data
+ * @returns
+ */
 exports.update = async (id, data) => {
   const employee = await Employee.findById(id);
 
@@ -48,6 +63,11 @@ exports.update = async (id, data) => {
   return result;
 };
 
+/**
+ * @async
+ * @param {string} id
+ * @returns
+ */
 exports.findById = async (id) => {
   const employee = await Employee.findById(id);
 
@@ -58,6 +78,11 @@ exports.findById = async (id) => {
   return employee;
 };
 
+/**
+ * @async
+ * @param {string} id
+ * @returns
+ */
 exports.delete = async (id) => {
   const employee = await Employee.findById(id);
 
