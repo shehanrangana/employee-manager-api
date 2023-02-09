@@ -33,6 +33,17 @@ exports.updateEmployee = async (req, res, next) => {
   }
 };
 
+exports.getEmployeeById = async (req, res, next) => {
+  try {
+    const employeeId = req.params.empId;
+
+    const data = await EmployeeService.getEmployeeById(employeeId);
+    return res.json(data);
+  } catch (error) {
+    next(error);
+  }
+};
+
 exports.deleteEmployee = async (req, res, next) => {
   try {
     const employeeId = req.params.empId;

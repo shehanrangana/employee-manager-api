@@ -15,6 +15,11 @@ exports.updateEmployee = async (id, data) => {
   return result;
 };
 
+exports.getEmployeeById = async (id) => {
+  const result = await EmployeeRepository.findById(id);
+  return result;
+};
+
 exports.deleteEmployee = async (id) => {
   const result = await EmployeeRepository.delete(id);
   return result;

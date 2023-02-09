@@ -7,10 +7,12 @@ exports.find = async () => {
 };
 
 exports.create = async (data) => {
-  const employee = await Employee.findOne({ email: data.email });
+  if (data.email) {
+    const employee = await Employee.findOne({ email: data.email });
 
-  if (employee) {
-    throw new ConflictError("Email address is already in use");
+    if (employee) {
+      throw new ConflictError("Email address is already in use");
+    }
   }
 
   const newEmployee = new Employee(data);
@@ -25,10 +27,10 @@ exports.update = async (id, data) => {
     throw new NotFoundError("Employee not found");
   }
 
-  const { firstName, lastName, email, number, gender, photo } = data;
+  const { firstName, lastName, email, number, gender } = data;
 
   // If email is changed, check whether new email already is use
-  if (email !== employee.email) {
+  if (email && email !== employee.email) {
     const prevEmployee = await Employee.findOne({ email });
 
     if (prevEmployee) {
@@ -36,15 +38,24 @@ exports.update = async (id, data) => {
     }
   }
 
-  employee.firstName = firstName || employee.firstName;
-  employee.lastName = lastName || employee.lastName;
-  employee.email = email || employee.email;
-  employee.number = number || employee.number;
-  employee.gender = gender || employee.gender;
-  employee.photo = photo || employee.photo;
+  employee.firstName = firstName;
+  employee.lastName = lastName;
+  employee.email = email;
+  employee.number = number;
+  employee.gender = gender;
 
   const result = await employee.save();
   return result;
+};
+
+exports.findById = async (id) => {
+  const employee = await Employee.findById(id);
+
+  if (!employee) {
+    throw new NotFoundError("Employee not found");
+  }
+
+  return employee;
 };
 
 exports.delete = async (id) => {

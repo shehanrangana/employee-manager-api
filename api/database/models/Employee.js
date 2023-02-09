@@ -24,7 +24,7 @@ const EmployeeSchema = new Schema(
     },
     gender: {
       type: String,
-      enum: ["M", "F"],
+      enum: ["M", "F", ""],
     },
     photo: {
       type: String,

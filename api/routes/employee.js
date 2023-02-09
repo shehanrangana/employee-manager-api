@@ -14,9 +14,9 @@ router.post(
   validate([
     body("firstName").notEmpty().isAlpha().isLength({ min: 3, max: 10 }),
     body("lastName").notEmpty().isLength({ min: 3, max: 10 }),
-    body("email").isEmail(),
-    body("number").isMobilePhone("si-LK"),
-    body("gender").notEmpty().isIn(["M", "F"]),
+    body("email").optional({ checkFalsy: true }).isEmail(),
+    body("number").optional({ checkFalsy: true }).isMobilePhone("si-LK"),
+    body("gender").optional({ checkFalsy: true }).isIn(["M", "F", ""]),
   ]),
   EmployeeController.createEmployee
 );
@@ -26,12 +26,14 @@ router.put(
   validate([
     body("firstName").notEmpty().isAlpha().isLength({ min: 3, max: 10 }),
     body("lastName").notEmpty().isLength({ min: 3, max: 10 }),
-    body("email").isEmail(),
-    body("number").isMobilePhone("si-LK"),
-    body("gender").notEmpty().isIn(["M", "F"]),
+    body("email").optional({ checkFalsy: true }).isEmail(),
+    body("number").optional({ checkFalsy: true }).isMobilePhone("si-LK"),
+    body("gender").optional({ checkFalsy: true }).isIn(["M", "F", ""]),
   ]),
   EmployeeController.updateEmployee
 );
+
+router.get("/:empId", EmployeeController.getEmployeeById);
 
 router.delete("/:empId", EmployeeController.deleteEmployee);
 
