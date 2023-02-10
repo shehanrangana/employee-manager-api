@@ -2,10 +2,12 @@ const EmployeeRepository = require("../database/repositories/employee-repository
 
 /**
  * @async
+ * @param {string} orderBy
+ * @param {string} order
  * @returns
  */
-exports.getEmployees = async () => {
-  const result = await EmployeeRepository.find();
+exports.getEmployees = async (orderBy, order) => {
+  const result = await EmployeeRepository.find(orderBy, order);
   return result;
 };
 

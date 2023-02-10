@@ -10,7 +10,8 @@ const { STATUS_CODES } = require("../utils/enums");
  */
 exports.getEmployees = async (req, res, next) => {
   try {
-    const data = await EmployeeService.getEmployees();
+    const { orderBy, order } = req.query;
+    const data = await EmployeeService.getEmployees(orderBy, order);
     return res.json(data);
   } catch (error) {
     next(error);

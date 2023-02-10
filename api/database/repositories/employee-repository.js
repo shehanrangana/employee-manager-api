@@ -3,10 +3,26 @@ const Employee = require("../models/Employee");
 
 /**
  * @async
+ * @param {string} orderBy
+ * @param {string} order
  * @returns
  */
-exports.find = async () => {
-  const employees = await Employee.find();
+exports.find = async (orderBy, order) => {
+  // to avoid sort by not defined fields and control which fields can be used to sort
+  const orderByValues = { firstName: 1, lastName: 1, email: 1, number: 1, gender: 1 };
+  // to avoid sort by not defined orders and control which order can be used to sort
+  const orderValues = { asc: 1, desc: 1 };
+
+  let employees = [];
+
+  if (orderByValues[orderBy] && orderValues[order]) {
+    employees = await Employee.find()
+      .collation({ locale: "en" })
+      .sort({ [orderBy]: [order] });
+  } else {
+    employees = await Employee.find();
+  }
+
   return employees;
 };
 
