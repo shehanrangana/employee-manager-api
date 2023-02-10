@@ -17,3 +17,9 @@ Start the production server:
 ```bash
 npm start
 ```
+
+Run tests:
+
+```bash
+npm test
+```
