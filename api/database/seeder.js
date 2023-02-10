@@ -1,10 +1,17 @@
 const Employee = require("./models/Employee");
-const employees = require("./employees.json");
 
 module.exports = async () => {
   try {
+    const employees = require("./employees.json");
+
+    // exit from function if intial data is empty
+    if (!employees?.length) {
+      return;
+    }
+
     const data = await Employee.find().exec();
 
+    // exit from function if database already has data
     if (data.length !== 0) {
       return;
     }
