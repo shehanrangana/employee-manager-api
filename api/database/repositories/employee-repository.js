@@ -9,9 +9,9 @@ const Employee = require("../models/Employee");
  */
 exports.find = async (orderBy, order) => {
   // to avoid sort by not defined fields and control which fields can be used to sort
-  const orderByValues = { firstName: 1, lastName: 1, email: 1, number: 1, gender: 1 };
+  const orderByValues = { firstName: true, lastName: true, email: true, number: true, gender: true };
   // to avoid sort by not defined orders and control which order can be used to sort
-  const orderValues = { asc: 1, desc: 1 };
+  const orderValues = { asc: true, desc: true };
 
   let employees = [];
 
